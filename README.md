@@ -1,7 +1,7 @@
-###Design Pattern
+### Design Pattern
 
-###Design Pattern Nedir?
->Tasarım kalıpları, yazılım geliştiricilerin yazılım geliştirme sırasında karşılaştıkları genel sorunların çözümüdür. 
+### Design Pattern Nedir?
+> Tasarım kalıpları, yazılım geliştiricilerin yazılım geliştirme sırasında karşılaştıkları genel sorunların çözümüdür. 
 
 Tasarım kalıpları, test edilmiş ve kanıtlanmış geliştirme imkanları sağlayarak geliştirme sürecini hızlandırabilir. Etkili yazılım tasarımı, uygulamanın ilerleyen zamanlarına kadar görünmeyebilecek sorunları dikkate almayı gerektirir. Tasarım kalıplarının yeniden kullanılması, büyük sorunlara neden olabilecek küçük sorunların önlenmesine yardımcı olur ve kalıplara aşina olan kodlayıcılar ve mimarlar için kod okunabilirliğini artırır.
 
@@ -16,7 +16,7 @@ Tasarım kalıpları;
 
 olmak üzere 3'e ayrılır.
 
-##Creational Design Patterns (Yaratıcı)
+## Creational Design Patterns (Yaratıcı)
 Bu tasarım kalıpları tamamen sınıf örneklemesi ile ilgilidir. Bu örüntü ayrıca sınıf yaratma örüntülerine ve nesne yaratma örüntülerine ayrılabilir. Sınıf yaratma kalıpları örnekleme sürecinde kalıtımı etkin bir şekilde kullanırken, nesne oluşturma kalıpları işi yapmak için delegasyonu etkin bir şekilde kullanır.
 
 Abstract Factory : Birkaç sınıf ailesinin bir örneğini oluşturur.
@@ -31,7 +31,7 @@ Prototype : Kopyalanacak veya klonlanacak tamamen başlatılmış bir örnek olu
 
 Singleton : Yalnızca tek bir örneği var olabilecek bir sınıf.
 
-##Structural Design Patterns (Yapısal)
+## Structural Design Patterns (Yapısal)
 Bu tasarım kalıpları tamamen Sınıf ve Nesne kompozisyonuyla ilgilidir. Yapısal sınıf yaratma kalıpları, arayüz oluşturmak için kalıtım kullanır. Yapısal nesne kalıpları, yeni işlevsellik elde etmek için nesne oluşturma yollarını tanımlar.
 
 Adapter : Farklı sınıfların eşleme arayüzleri.
@@ -51,7 +51,7 @@ Private Class Data : Erişimi kısıtlar.
 Proxy : Başka bir nesneyi temsil eden nesne. 
 
 
-##Behavioral Design Patterns (Davranışsal)
+## Behavioral Design Patterns (Davranışsal)
 
 Bu tasarım kalıpları tamamen Class'ın nesne iletişimi ile ilgilidir. Davranışsal örüntüler, nesneler arasındaki iletişim ile en özel olarak ilgili örüntülerdir.
 
@@ -79,8 +79,8 @@ Template method : Bir algoritmanın tam adımlarını bir alt sınıfa erteleme.
 
 Visitor : Değişiklik olmadan bir sınıfa yeni bir işlem tanımlar.
 
-###Singleton Design Pattern
->Singleton desgin pattern çalışma zamanında yalnızca 1 object yaratılmasını garanti eden tasarım desenidir.
+### Singleton Design Pattern
+> Singleton desgin pattern çalışma zamanında yalnızca 1 object yaratılmasını garanti eden tasarım desenidir.
 
 Kullanımına ihtiyaç duyulan durum şudur :
 * Birden çok sınıfın aynı instance’ı kullanması gerekmektedir.
@@ -91,7 +91,7 @@ Bu gereklilikler için bir sınıf yaratırız ve sınıfın kendi instance’ı
 
 *Singleton Design Pattern kendi içinde 5'ya ayrılır.
 
-####1.Eager Initialization
+#### 1.Eager Initialization
 Bu yapı bize bir tane instance yaratmayı garanti eder fakat ihtiyacımız olmadıgı durumlarda bile program çalıştıgı an bellekte yer kaplayacaktır.
 
     public class EagerInitializationSingleton {
@@ -109,7 +109,7 @@ Bu yapı bize bir tane instance yaratmayı garanti eder fakat ihtiyacımız olma
     		System.out.println("Eager Singleton method calisti");
     	}
 
-####2.Lazy Initialization
+#### 2.Lazy Initialization
 
 Bu yapıyı kullandığımız zaman başlangıçta bir instance yaratmaz ve bellekte yer kaplamaz. Fakat her çağırıldıgında null check yapmak zorunda kalır. 
 * Birden fazla thread erişmeye çalışırsa lag oluşturabilir veya runtime exception oluşturabilir. 
@@ -134,7 +134,7 @@ Bu yapıyı kullandığımız zaman başlangıçta bir instance yaratmaz ve bell
        		System.out.println("Lazy Singleton method calisti");
        	}
        	
-####3.Static Block Initialization
+#### 3.Static Block Initialization
 Eager Initialization’un yapısına benzer. Tek farkı burada exception handling yapılmasına olarak sağlar.
     
       public class StaticBlockSingleton {
@@ -160,7 +160,7 @@ Eager Initialization’un yapısına benzer. Tek farkı burada exception handlin
       		System.out.println("Static Block Singleton method calisti");
       	}
       	
-####4.Thread Safe Singleton
+#### 4.Thread Safe Singleton
 Lazy initialization yapısı gibi çalışır fakat syncronized oldugu için işlemleri sıraya koyar.Bu sayede multi thread çalışmaya izin verir.
 Her seferinde check işlemi yaparken bir performans kaybı olur 
 
@@ -183,7 +183,7 @@ Her seferinde check işlemi yaparken bir performans kaybı olur
     	}
       	
       	
-####5.Bill Pugh Singleton 
+#### 5.Bill Pugh Singleton 
 Yükleme süresi thread safe yapısından kısadır. Direk olarak static bir degişken tanımlamadıgımız için jwm bunu hemen load etmeyecektir.
    
     public class BillPughSingleton {
@@ -199,16 +199,14 @@ Yükleme süresi thread safe yapısından kısadır. Direk olarak static bir deg
     	
     	private static class SingletonHelper{
     		private static final BillPughSingleton INSTANCE= new BillPughSingleton();
-    		
-    		
-    		
+       		
     	}
     	public void singletonTest() {
     		System.out.println("Bill Pugh Singleton method calisti");
     	}
     	
-###Prototype Design Pattern
->Prototype Pattern kullanılmasının amacı üretilen nesnenin çok kaynak tüketmesi durumunun engellenmesini sağlamaktır.
+### Prototype Design Pattern
+> Prototype Pattern kullanılmasının amacı üretilen nesnenin çok kaynak tüketmesi durumunun engellenmesini sağlamaktır.
 
 Yaptığımız projemizde nesnemizi birden fazla oluşturmamız gerektiğinde normalde “new” olarak oluşturmak yerine bir tane oluşturduğumuz nesnemizin klonunu oluşturmamızı sağlayan bir design patterndir.
 
@@ -326,9 +324,9 @@ Square
 Burada artık loadCache methodu kullanarak ShapeCache üzerinden tüm nesneleri tek seferde yaratmamıza olanak sağlar.
 Bundan sonra load edilen tüm nesneleri, id değerini belirtme şartıyla kullanılabilir.
 
-###Adapter Design Pattern
+### Adapter Design Pattern
 
->Mevcut bir sınıfın arayüzünün başka bir arayüz olarak kullanılmasına izin veren bir yazılım tasarım modelidir.
+> Mevcut bir sınıfın arayüzünün başka bir arayüz olarak kullanılmasına izin veren bir yazılım tasarım modelidir.
 
 Kullanım amacı;
 * İki uyumsuz interface’i beraber kullanılmasını sağlar.
@@ -415,7 +413,7 @@ Bu sınıfı CryptA ve CryptB gibi kullanmak için bu sınıfın Adapter sınıf
         }
     }
 
-###Facade Design Pattern
+### Facade Design Pattern
 
 Facade Design Pattern örnek olarak bir kütüphane geliştiricisi bir sistem geliştirilirken o kütüphaneyi kullanan yazılımcıya kolaylık sağlamak ve kod kalabalıgını azaltmak için arka planda yapılan işlemleri yazılımcıya bir method yardımıyla dogrudan verir.
 
@@ -477,7 +475,7 @@ Yazılımcı bu sınıfları tek tek bilmek ve tek tek instance yaratmasını en
         }
     }
  
-###Factory Design Pattern  
+### Factory Design Pattern  
 
 Factory Design Pattern aynı tipteki nesnelerin üretmeyi tek bir noktadan yaparak kod tekrarını engeller.
 Aynı zamanda kullanacak olan yazılımcılar işin arkasındaki kısımları bilmeden gerekli parametreleri vererek doğrudan o sınıflara erişmeden kullanabilirler.
@@ -530,8 +528,8 @@ Aşağıda bulunan FileExporterFactory sınıfı ise içine verilen parametreye 
    
 
 
-###Observer Design Pattern  
->Observer tasarım deseni, bir nesnede meydana gelen değişikliği içinde bulunduğu listedeki tüm elemanlara bildiren tasarım desenidir.
+### Observer Design Pattern  
+> Observer tasarım deseni, bir nesnede meydana gelen değişikliği içinde bulunduğu listedeki tüm elemanlara bildiren tasarım desenidir.
 
 Bir nesnenin durumunun değişmesi ile o nesneye bağlı diğer nesnelerin bu değişimi bilmesi isteniyorsa, böyle durumlarda bu tasarım desenini kullanılabilir.
 
@@ -631,7 +629,7 @@ Notification
 
     
 
-###Template Design Pattern
+### Template Design Pattern
 
 Bu tasarım şablonunda bir gidişat belirleyebilmek, bir algoritma yapabilmek adına işlemler soyut olarak tanımlanır. Bu işlemler, bir şablon metot tarafından çalıştırılır. Alt sınıflar da bu soyut adımları kendi bünyelerinde implemente ederek kullanılan algoritmanın istekleri doğrultusunda çalışmasını sağlayabilirler.
 
