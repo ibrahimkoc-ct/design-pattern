@@ -700,22 +700,129 @@ Criket
     
     }
 
+### Strategy Design Pattern
 
+Bir durum gerçekleşeceği zaman birden fazla seçeneğimiz varsa istenilen veya gerçekleşmesi beklenen seçime(stratejiye) kolaylıkla ulaşmamızı sağlayan bir strateji sınıfına ihtiyaç duyulur. Seçeneklerimiz arttıkça kolaylıkla ekleme yapabilir veya durumlar arası geçişi kod fazlalığı olmadan gerçekleştirebiliriz. Ayrıca Stratejilerden birinde değişiklik yapmak istediğimizde direk onun üzerinde kolaylıkla yapabiliriz.
 
+* Sık kullanılan bir örnekte havalimanına giderken birçok seçeneğimiz vardır.Bu ulaşım biçimleri kendi arabamızla, otobüsle, taksi gibi..
 
+* Her aracın ulaşım zamanı ve maaliyeti farklı olacaktır. HavaalaniUlasim sınıfında ücret ve zaman metodlarını tanımladığımızda tercih edilen stratejiye göre yani otobüs seçilmiş ise otobüsün masraf ve ulaşım zamanını getirecektir. Bu sayede sınıfımız if-else kod kalabalığından arınmış da olacaktır. Daha sonra araçlardan birinin ulaşım masrafında değişiklik olduğunda bunu düzenlemekte kolay olacaktır.
+
+Aşağıda bulunan örnek verilen 2 sayı üzerinde toplama, çıkarma ve çarpma işlemleri yapmaktadır. Bu 2 sayı farklı şekilde işlemlere girebilir yani farklı stratejiler olabilir.Bu stratejiler, Strategy pattern kullanılarak yapılmıştır.
+
+Strategy interfacesi içinde bulunan doOperation methoduyla operasyon yapacak olan sınıflar için kullanılacaktır.
+
+    public interface Strategy {
+        public int doOperation(int num1, int num2);
+      }    
+      
+OperationAdd, OperationSubstract ve OperationMultiply sınıfları ise strategy interfacesini iplement etmiş operator sınıflarıdır.
+
+OperationAdd
+
+       public class OperationAdd implements Strategy{
+         @Override
+         public int doOperation(int num1, int num2) {
+              return num1 + num2;
+         }
+       }          
+
+OperationSubstract
+
+     public class OperationSubstract implements Strategy{
+       @Override
+       public int doOperation(int num1, int num2) {
+           return num1 - num2;
+       }
+     }
+     
+OperationMultiply
+
+    public class OperationMultiply implements Strategy{
+      @Override
+      public int doOperation(int num1, int num2) {
+          return num1 * num2;
+      }
+    }
+    
+Context sınıfı ise parametre olarak Strategy alan ve executeStrategy metoduyla 2 sayiyi parametre olarak alıp operator işlemleri kullanabildiğimiz sınıftır.
+
+      public class Context {
+        private Strategy strategy;
+      
+        public Context(Strategy strategy){
+            this.strategy = strategy;
+        }
+      
+        public int executeStrategy(int num1, int num2){
+            return strategy.doOperation(num1, num2);
+        }
+      }
+      
+ Bu operatorleri çağırmak için ise bir context instance oluşturup parametre olarak yapmak istediğimiz operatoru vererek kullanabiliriz.
  
+      public class StrategyPatternDemo {
+        public static void main(String[] args) {
+            Context context = new Context(new OperationAdd());		
+            System.out.println("10 + 5 = " + context.executeStrategy(10, 5));
+      
+            context = new Context(new OperationSubstract());		
+            System.out.println("10 - 5 = " + context.executeStrategy(10, 5));
+      
+            context = new Context(new OperationMultiply());		
+            System.out.println("10 * 5 = " + context.executeStrategy(10, 5));
+        }
+      }
+      
+### Front Controller Design Pattern
 
+Front Controller Design Pattern bir uygulamada bir kaynak için gelen tüm isteklerin tek bir işleyici tarafından işleneceği ve ardından bu tür istek için uygun işleyiciye gönderileceği anlamına gelir. Front Controller sevk mekanizmasını elde etmek için başka yardımcılar kullanabilir.  
+
+Bu pattern yapısını daha iyi anlamak için aşağıda bulunan kodu inceleyebilirsiniz. 
+
+Bu örneğin gönderilen işlemi karşılayıp yapılacak işlemleri tek bir yerden kontrol edecek bir Dispatcher yazmak olacak.
+
+Bu işlemi yapabilmek için Teacher ve Student sınıflarının bir View kısmı oluşturulması gerekir.
+    
+TeacherView
+
+    class TeacherView {
+        public void display() {
+            System.out.println("Teacher View");
+        }
+    }
+            
+StudentView
+
+    class StudentView {
+        public void display() {
+            System.out.println("Student View");
+        }
+    }
+    
+Aşağıda bulunan Discpathing sınıf ise gelecek olan istekleri verilen parametreye göre yönetecek ve StudentView ya da TeacherView objelerinden birini çağıracaktır.
+
+    class Dispatching {
+        private StudentView studentView;
+        private TeacherView teacherView;
+    
+        public Dispatching() {
+            studentView = new StudentView();
+            teacherView = new TeacherView();
+        }
+    
+        public void dispatch(String request) {
+            if (request.equalsIgnoreCase("Student")) {
+                studentView.display();
+            } else {
+                teacherView.display();
+            }
+        }
+    }        
+          
+           
+     
         
-
-  
-
-
-
-     
-
-
-     
-                   
 
 Kaynaklar
 * https://blog.kmk.net.tr/design-patterns-nedir
@@ -724,3 +831,5 @@ Kaynaklar
 * https://metinalniacik.medium.com/adapter-design-pattern-tasar%C4%B1m-%C3%B6r%C3%BCnt%C3%BCs%C3%BC-3469833059d9
 * https://github.com/HaydiKodlayalim/java-design-patterns
 * https://umiitkose.com/2020/05/observer-pattern-nedir/
+* https://kubitokya.wordpress.com/2017/03/26/strategy-tasarim-deseni/
+* https://www.geeksforgeeks.org/front-controller-design-pattern/
